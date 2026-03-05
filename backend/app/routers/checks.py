@@ -1,9 +1,9 @@
 """Quality checks router - STUB: All endpoints need implementation."""
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.schemas.report import CheckResultResponse, QualityScoreResponse
+from app.schemas.report import CheckResultResponse
 
 router = APIRouter()
 

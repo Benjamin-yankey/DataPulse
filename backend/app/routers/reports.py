@@ -1,6 +1,6 @@
 """Reports router - STUB: All endpoints need implementation."""
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.schemas.report import QualityReport, QualityScoreResponse

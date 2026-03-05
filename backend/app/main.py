@@ -16,10 +16,10 @@ app.include_router(reports.router, prefix="/api/reports", tags=["Reports"])
 
 @app.on_event("startup")
 def on_startup():
-    import app.models.user
-    import app.models.dataset
-    import app.models.rule
-    import app.models.check_result
+    import app.models.user  # noqa: F401
+    import app.models.dataset  # noqa: F401
+    import app.models.rule  # noqa: F401
+    import app.models.check_result  # noqa: F401
     Base.metadata.create_all(bind=engine)
 
 @app.get("/")

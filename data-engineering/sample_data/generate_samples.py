@@ -26,12 +26,18 @@ def generate_dataset(num_rows=100, error_rate=0.1, output_path="generated.csv"):
         # Introduce errors based on error_rate
         if random.random() < error_rate:
             choice = random.randint(0, 5)
-            if choice == 0: name = ""
-            elif choice == 1: email = "not-valid"
-            elif choice == 2: age = random.choice([-5, 0, 200])
-            elif choice == 3: dept = ""
-            elif choice == 4: salary = "abc"
-            elif choice == 5: hire = ""
+            if choice == 0:
+                name = ""
+            elif choice == 1:
+                email = "not-valid"
+            elif choice == 2:
+                age = random.choice([-5, 0, 200])
+            elif choice == 3:
+                dept = ""
+            elif choice == 4:
+                salary = "abc"
+            elif choice == 5:
+                hire = ""
 
         rows.append([i, name, email, age, dept, salary, hire])
 

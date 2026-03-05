@@ -9,11 +9,13 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    # Truncate to 72 bytes for bcrypt compatibility
+    return pwd_context.hash(password[:72])
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+    # Truncate to 72 bytes for bcrypt compatibility
+    return pwd_context.verify(plain[:72], hashed)
 
 
 def create_user(db: Session, user_data: UserCreate):

@@ -1,7 +1,9 @@
 """Dataset upload router - IMPLEMENTED."""
 
-import os, json, uuid
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query, status
+import os
+import json
+import uuid
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query
 from sqlalchemy.orm import Session
 from app.config import settings
 from app.database import get_db
@@ -39,7 +41,9 @@ def upload_dataset(file: UploadFile = File(...), db: Session = Depends(get_db)):
     dataset = Dataset(name=filename.rsplit(".",1)[0], file_type=ext,
         row_count=metadata["row_count"], column_count=metadata["column_count"],
         column_names=json.dumps(metadata["column_names"]), status="PENDING")
-    db.add(dataset); db.commit(); db.refresh(dataset)
+    db.add(dataset)
+    db.commit()
+    db.refresh(dataset)
 
     df = DatasetFile(dataset_id=dataset.id, file_path=file_path, original_filename=filename)
     db.add(df)

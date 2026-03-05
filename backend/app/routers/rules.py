@@ -1,7 +1,7 @@
 """Validation rules router - PARTIAL implementation."""
 
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.rule import ValidationRule
@@ -21,14 +21,16 @@ def create_rule(rule_data: RuleCreate, db: Session = Depends(get_db)):
     if rule_data.severity not in VALID_SEVERITIES:
         raise HTTPException(status_code=400, detail=f"Invalid severity: {VALID_SEVERITIES}")
     rule = ValidationRule(**rule_data.model_dump())
-    db.add(rule); db.commit(); db.refresh(rule)
+    db.add(rule)
+    db.commit()
+    db.refresh(rule)
     return rule
 
 
 @router.get("", response_model=list[RuleResponse])
 def list_rules(dataset_type: Optional[str] = Query(None), db: Session = Depends(get_db)):
     """List validation rules - IMPLEMENTED."""
-    q = db.query(ValidationRule).filter(ValidationRule.is_active == True)
+    q = db.query(ValidationRule).filter(ValidationRule.is_active is True)
     if dataset_type:
         q = q.filter(ValidationRule.dataset_type == dataset_type)
     return q.all()

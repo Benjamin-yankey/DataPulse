@@ -8,14 +8,21 @@ from app.schemas.auth import UserCreate
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
+def _truncate_password_bytes(password: str | bytes) -> bytes:
+    """Return password bytes truncated to bcrypt's 72-byte limit."""
+    if isinstance(password, bytes):
+        return password[:72]
+    return password.encode("utf-8")[:72]
+
+
 def hash_password(password: str) -> str:
     # Truncate to 72 bytes for bcrypt compatibility
-    return pwd_context.hash(password[:72])
+    return pwd_context.hash(_truncate_password_bytes(password))
 
 
 def verify_password(plain: str, hashed: str) -> bool:
     # Truncate to 72 bytes for bcrypt compatibility
-    return pwd_context.verify(plain[:72], hashed)
+    return pwd_context.verify(_truncate_password_bytes(plain), hashed)
 
 
 def create_user(db: Session, user_data: UserCreate):

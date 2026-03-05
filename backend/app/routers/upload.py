@@ -42,7 +42,8 @@ def upload_dataset(file: UploadFile = File(...), db: Session = Depends(get_db)):
     db.add(dataset); db.commit(); db.refresh(dataset)
 
     df = DatasetFile(dataset_id=dataset.id, file_path=file_path, original_filename=filename)
-    db.add(df); db.commit()
+    db.add(df)
+    db.commit()
     return dataset
 
 

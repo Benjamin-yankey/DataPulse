@@ -1,6 +1,6 @@
 """Authentication tests - IMPLEMENTED."""
 
-import pytest
+import pytest  # noqa: F401
 
 
 def test_register_success(client):

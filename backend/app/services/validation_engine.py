@@ -1,7 +1,6 @@
 """Validation engine - PARTIAL implementation."""
 
 import json
-import re
 import pandas as pd
 
 
